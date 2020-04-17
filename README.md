@@ -8,6 +8,14 @@ NestJs es un framework para backend que utiliza la filosofía de Angular (no Ang
 
 El frontend tiene como diseño una página principal que muestra en un cuadro el reporte del clima actual y en una tabla el reporte de los proximos dias, tal cual se recibe de la API de openweathermap.org
 
+Para instalar correr `npm install`
+
+Para iniciar el servidor y el frontend ejecutar `npm run start:dev`
+
+Para iniciar el servidor solamente `npm run backend:dev`
+
+Para iniciar el frontend solamente `npm run front:dev`
+
 ### Consideraciones Pendientes
 
 #### En el backend faltaria:

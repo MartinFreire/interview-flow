@@ -6,7 +6,8 @@
   "scripts": {
     "front:dev": "cd frontend && npm run start",
     "backend:dev": "cd backend && npm run start:dev",
-    "start:dev": "run-p front:dev backend:dev"
+    "start:dev": "run-p front:dev backend:dev",
+    "postinstall": "cd frontend && npm install && cd ../backend && npm install"
   },
   "author": "Martin Freire",
   "license": "ISC",
