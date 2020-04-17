@@ -2,9 +2,7 @@ import React from 'react';
 import './Navbar.css';
 import NavItem from './NavItem';
 import NavTitle from "./NavTitle";
-import {
-  Link
-} from 'react-router-dom';
+
 
 function Navbar() {
   return (
@@ -13,13 +11,17 @@ function Navbar() {
 
         <NavTitle link="#"/>
 
-        <NavItem name="Buenos Aires" link="/"/>
+        <NavItem name="Actual" link="/"/>
+
+        <NavItem name="Rio de Janeiro" link="/rio-janeiro"/>
 
         <NavItem name="Los Angeles" link="/los-angeles"/>
 
         <NavItem name="Miami" link="/miami"/>
 
         <NavItem name="Londres" link="/london"/>
+
+        <NavItem name="San Petersburgo" link="/san-petersburgo"/>
 
       </ul>
     </nav>

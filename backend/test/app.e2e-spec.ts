@@ -1,24 +1,63 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
+import * as request            from 'supertest';
+import { Test }                from '@nestjs/testing';
+import { INestApplication }    from '@nestjs/common';
+import { AppModule }           from '../src/app.module';
+import { WheatherService }     from '../src/wheather.service';
+import { WheatherMockService } from '../src/wheather.mock-service';
+import { LocationService }     from '../src/location.service';
+import { LocationMockService } from '../src/location.mock-service';
 
-describe('AppController (e2e)', () => {
+
+describe('App (e2e)', () => {
   let app: INestApplication;
+  let locationSvc: LocationService;
+  let wheatherSvc: WheatherService;
 
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
+  beforeAll(async () => {
+    const moduleRef = await Test.createTestingModule({
+      imports: [ AppModule ],
+    }).overrideProvider(WheatherService)
+      .useClass(WheatherMockService)
+      .overrideProvider(LocationService)
+      .useClass(LocationMockService)
+      .compile();
 
-    app = moduleFixture.createNestApplication();
+    app = moduleRef.createNestApplication();
+
+    locationSvc = moduleRef.get<LocationService>(LocationService);
+    wheatherSvc = moduleRef.get<WheatherService>(WheatherService);
+
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it(`/GET /location`, async () => {
     return request(app.getHttpServer())
-      .get('/')
+      .get('/location')
       .expect(200)
-      .expect('Hello World!');
+      .expect(await locationSvc.getLocation())
   });
+
+  it(`/GET /current`, async () => {
+    return request(app.getHttpServer())
+      .get('/current')
+      .expect(200)
+      .expect( async (res) => {
+        console.log(res);
+        return res === await wheatherSvc.getCurrent('test');
+      })
+  });
+
+  it(`/GET /forecast`, async () => {
+    return request(app.getHttpServer())
+      .get('/forecast')
+      .expect(200)
+      .expect( async (res) => {
+        return res === await wheatherSvc.getForecast('test');
+      })
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
 });

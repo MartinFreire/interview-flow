@@ -1,13 +1,13 @@
-import React from 'react';
-import './App.css';
+import React    from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
-} from 'react-router-dom';
-import Navbar from './Navbar/Navbar';
-import Forecast from "./Forecast/Forecast";
+  Route
+}               from 'react-router-dom';
+import Navbar   from './Navbar/Navbar';
+import CityPage from "./CityPage/CityPage";
+import './App.css';
+
 
 function App() {
   return (
@@ -16,17 +16,23 @@ function App() {
         <Navbar/>
         <header className="App-header">
           <Switch>
+            <Route path="/rio-janeiro">
+              <CityPage cityLabel='Rio de Janeiro' cityId={'Rio de Janeiro, Brasil'}/>
+            </Route>
             <Route path="/miami">
-              <Forecast cityName='Miami' cityId={'1'}/>
+              <CityPage cityLabel='Miami' cityId={'Miami, US'}/>
             </Route>
             <Route path="/los-angeles">
-              <Forecast cityName='Los Angeles' cityId={'1'}/>
+              <CityPage cityLabel='Los Angeles' cityId={'Los Angeles, US'}/>
             </Route>
             <Route path="/london">
-              <Forecast cityName='Londres' cityId={'1'}/>
+              <CityPage cityLabel='Londres' cityId={'London,uk'}/>
+            </Route>
+            <Route path="/san-petersburgo">
+              <CityPage cityLabel='San Petersburgo' cityId={'Saint Petersburg'}/>
             </Route>
             <Route path="/">
-              <Forecast cityName='Buenos Aires' cityId={'1'}/>
+              <CityPage cityLabel=''/>
             </Route>
           </Switch>
         </header>

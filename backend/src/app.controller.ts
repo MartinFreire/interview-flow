@@ -1,12 +1,19 @@
+import axios               from 'axios';
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { LocationService } from "./location.service";
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private location: LocationService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('')
+  getServerRunning(): string {
+    return 'OK';
   }
+
+  @Get('location')
+  async getLocation(): Promise<any> {
+    return this.location.getLocation();
+  }
+
 }
